@@ -1,18 +1,17 @@
 from __future__ import annotations
 
-import io
 import os
 from pathlib import Path
 from typing import Any
 
 import requests
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSET_DIR = ROOT / "assets"
 OUT_PATH = ROOT / os.getenv("OUT_PATH", "assets/profile.gif")
 AVATAR_PATH = ROOT / os.getenv("AVATAR_PATH", "assets/hacker.jpg")
-LOGIN = os.getenv("GITHUB_LOGIN", "").strip()
+LOGIN = os.getenv("GITHUB_LOGIN", "Hidz346").strip()
 NAME = os.getenv("PROFILE_NAME", "SYAHID SUBHAN PUTRA")
 BRAND = os.getenv("PROFILE_BRAND", "HIDZ PROJECT")
 ROLE = os.getenv("PROFILE_ROLE", "WEB DEVELOPER & SECURITY ENTHUSIAST")

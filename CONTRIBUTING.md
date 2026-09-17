@@ -1,57 +1,64 @@
 # Contributing
 
-Thanks for contributing to **SYAHID SUBHAN PUTRA — GitHub Profile Card**.
+Thanks for wanting to contribute to **ASCII Profile Card**! There are two very different ways to
+contribute, depending on what you want to do:
 
-## Development
+- **Improving the generator itself** (bug fixes, new features, better ASCII rendering, etc.) — see
+  [Contributing code](#contributing-code) below.
+- **Showing off a card you made with this template** — you don't need to touch any code, just add
+  yourself to the [gallery](GALLERY.md). See [Adding your card to the gallery](#adding-your-card-to-the-gallery).
 
-Requirements:
+## Adding your card to the gallery
 
-- Python 3.12+
-- Pillow
-- NumPy
-- Requests
+This repo is a *template* — most people who use it fork or copy it into their own `username/username`
+repo rather than contributing directly here. If you've set up your own animated ASCII card and want
+to show it off:
 
-Install dependencies:
+1. Fork **this** repo (`ascii-profile-card`, not your personal copy).
+2. Open [`GALLERY.md`](GALLERY.md) and add a new row to the table with:
+   - A link to your GitHub profile.
+   - A `raw.githubusercontent.com` link to your generated `profile.svg`.
+3. Open a pull request titled `gallery: add @yourname`.
 
-```bash
-python -m pip install -r requirements.txt
-```
+Keep the entry to one row — no extra commentary, badges, or promotional text in the table itself.
 
-Generate the card locally:
+## Contributing code
 
-```bash
-GITHUB_LOGIN="your-username" python scripts/generate_card.py
-```
+1. Fork and clone the repo.
+2. Create a branch: `git checkout -b fix/short-description`.
+3. Make your changes in `scripts/generate_card.py` (or the workflow file, if relevant).
+4. Test locally before opening a PR:
 
-The generated SVG is written to `assets/profile.svg` by default.
+   ```bash
+   pip install pillow requests numpy
+   export GITHUB_LOGIN="your-username"
+   export GITHUB_TOKEN="ghp_xxxxxxxxxxxx"   # optional, enables live stats
+   python scripts/generate_card.py
+   ```
 
-## Before opening a pull request
+   Open the generated `assets/profile.svg` in a browser to confirm it renders and animates correctly.
+5. Keep changes focused — one feature/fix per PR makes review much faster.
+6. If you change a configurable value (color, timing, field, etc.), update the relevant table in
+   `README.md` so the docs stay accurate.
+7. Open a PR with a short description of *what* changed and *why*.
 
-Run:
+### Style notes
 
-```bash
-python -m py_compile scripts/generate_card.py scripts/generate_card_v2.py
-GITHUB_LOGIN="your-username" python scripts/generate_card.py
-```
+- Keep the script dependency-free beyond `pillow`, `requests`, and `numpy`.
+- No JavaScript in the generated SVG — animations must stay pure CSS `@keyframes`, since GitHub's
+  README sandbox strips `<script>` tags.
+- Prefer editing the tunable variables at the top of `generate_card.py` over hardcoding new magic
+  numbers deeper in the script.
 
-Then open `assets/profile.svg` in a browser and verify that:
+## Reporting issues
 
-- the card is readable at full size and when scaled down;
-- the avatar remains inside its panel;
-- long profile values do not overlap the statistics area;
-- the terminal prompt remains readable;
-- the SVG is valid XML;
-- no secrets or personal access tokens are committed.
+Open a GitHub issue with:
 
-## Design rules
+- What you expected to happen.
+- What actually happened (include the generated SVG or a screenshot if it's a rendering issue).
+- Your Python version and OS, if it's a local run failing.
 
-- Keep the generated SVG self-contained.
-- Do not add JavaScript to the generated card.
-- Prefer CSS animation that has a readable static fallback.
-- Keep profile data configurable through environment variables where practical.
-- Avoid duplicated generator implementations.
-- Do not commit `GITHUB_TOKEN` or any other credential.
+## License
 
-## Pull requests
-
-Keep each pull request focused. Explain what changed, why it changed, and how it was tested.
+By contributing, you agree your contributions are licensed under the same MIT license as the rest of
+the repo.
